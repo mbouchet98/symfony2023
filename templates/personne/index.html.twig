@@ -9,12 +9,28 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Listes des {{ personne }}s!</h1>
 
-    This friendly message is coming from:
-    <ul>
+    Vous trouverez ici la liste de tout les {{ personne }}s ayant contribués à la création de bouquin:
+    <table>
+        <thead>
+            <td>Nom</td>
+            <td>Prenom</td>
+            <td><button>Ajouter</button></td>
+        </thead>
+        <tbody>
+            {% for pers in listePersonne %}
+                <td>{{ pers.nom }}</td>
+                <td>{{ pers.prenom }}</td>
+                <td><button>Modifier</button></td>
+                <td><button>Supprimer</button></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+   {#  <ul>
         <li>Your controller at <code><a href="{{ '/var/www/project/src/Controller/PersonneController.php'|file_link(0) }}">src/Controller/PersonneController.php</a></code></li>
         <li>Your template at <code><a href="{{ '/var/www/project/templates/personne/index.html.twig'|file_link(0) }}">templates/personne/index.html.twig</a></code></li>
-    </ul>
+    </ul>#}
 </div>
 {% endblock %}

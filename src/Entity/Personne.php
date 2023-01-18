@@ -27,6 +27,17 @@ class Personne
      */
     private $Prenom;
 
+    /**
+     * @param $Nom
+     * @param $Prenom
+     */
+    public function __construct($Nom, $Prenom)
+    {
+        $this->Nom = $Nom;
+        $this->Prenom = $Prenom;
+    }
+
+
     public function getId(): ?int
     {
         return $this->id;
