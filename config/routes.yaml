@@ -1,3 +1,15 @@
 #index:
-#    path: /
-#    controller: App\Controller\DefaultController::index
+#    path: / lien de la vue
+#    controller: App\Controller\DefaultController::index le controller qui lui est associé
+personne_index:
+  path: /personne
+  controller: App\Controller\PersonneController::index
+
+personne_addOrUpdate:
+  path: /personne/form_view
+  controller: App\Controller\PersonneController::AddOrUpdate
+
+personne_delete:
+  path: /personne
+  controller: App\Controller\PersonneController::delete_personne
+

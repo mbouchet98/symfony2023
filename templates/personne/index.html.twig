@@ -14,27 +14,28 @@
 
     Vous trouverez ici la liste de tout les personnes ayant contribués à la création de bouquin:
 
-    <form action="{{ path('app_personne') }}" method="GET">
-        <table class="table table-striped">
+    <form action="{{ path('personne_addOrUpdate') }}" method="GET">
+        <table class="table">
             <thead>
                 <th scope="col">Nom</th>
                 <th scope="col">Prenom</th>
-                <th scope="col"><button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#idAddUpdateBtn" data-bs-whatever="@mdo" >Ajouter</button></th>
+                <th scope="col"><button type="submit" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#idAddUpdateBtn" data-bs-whatever="@mdo" >Ajouter</button></th>
             </thead>
             <tbody  class="table-group-divider">
                 {% for unePersonne in personnes %}
                     <tr>
-                        <td class="row"> {{ unePersonne.Nom }} </td>
+                        <td> {{ unePersonne.Nom }} </td>
 
-                        <td class="row">
+                        <td>
                             {{ unePersonne.Prenom }}
                         </td>
-                        <td class="row">
-                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#idAddUpdateBtn" data-bs-whatever="@mdo">Modifier</button>
-                        </td>
-                        <td class="row">
+                        <td>
+
+                            <button type="submit" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#idAddUpdateBtn" data-bs-whatever="@mdo">Modifier</button>
                             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#idSupprimerBtn" data-bs-whatever="@mdo">Supprimer</button>
+
                         </td>
+
                     </tr>
                 {% else %}
                     <tr>
@@ -45,60 +46,7 @@
                 {% endfor %}
             </tbody>
         </table>
-<!-- Modal Ajouter personne et Modifier personne -->
-        <form method="post">
-            {{ form_widget(form) }}
-            <input type="submit" value="Envoyer">
-        </form>
 
-        {% if data is defined %}
-            <p>Name: {{ data.name }}</p>
-            <p>Email: {{ data.email }}</p>
-        {% endif %}
-
-        <!--  <div class="modal fade" id="idAddUpdateBtn" tabindex="-1" aria-labelledby="AddUpdateBtn" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="idAddUpdateBtnLabel">New message</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="mb-3">
-
-                            </div>
-                            <div class="mb-3">
-
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                        <button type="submit" class="btn btn-primary">Enregistrer</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        </form>-->
-<!-- Modal Supprimer personne-->
-        <!-- <div class="modal fade" id="idSupprimerBtn" tabindex="-1" aria-labelledby="SupprimerBtnLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="SupprimerBtnLabel">Attention Supprimer !</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                       Voulez vous vraiment Supprimer cette personne !
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Non</button>
-                        <button type="button" class="btn btn-primary">Oui</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </form>-->
+    </form>
 </div>
 {% endblock %}

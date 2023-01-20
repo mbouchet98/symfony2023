@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Controller\Form\FormPersonne;
 use App\Entity\Personne;
+use App\Form\PersonneType;
 use App\Repository\PersonneRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -19,24 +20,8 @@ use Symfony\Component\Form\Extension\Core\Type\ResetType;
 class PersonneController extends AbstractController
 {
 
-    public function formAction(Request $request)
-    {
-        $form = $this->createForm(FormPersonne::class);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
-            $this->get('session')->set('data', $data);
-            return $this->redirectToRoute('index.html.twig');
-        }
-
-        return $this->render('form.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
     /**
-     * @Route("/personne", name="app_personne")
+     *
      * chargement de la page avec la liste de personnes
      */
     public function index(ManagerRegistry $doctrine): Response
@@ -45,4 +30,27 @@ class PersonneController extends AbstractController
 
         return $this->render('personne/index.html.twig', array('personnes'=>$monEnregistrement));
     }
+
+
+    public function AddOrUpdate(Request $request): Response
+    {
+        $personne = new Personne('test','test');
+        $form = $this->createForm(PersonneType::class, $personne);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // $form->getData() holds the submitted values
+            // but, the original `$task` variable has also been updated
+            $personne = $form->getData();
+
+            // ... perform some action, such as saving the task to the database
+
+            return $this->redirectToRoute('personne_index');
+        }
+
+
+        return $this->renderForm('personne/from_view/index.html.twig', ['form'=>$form]);
+    }
+
+
 }
