@@ -14,12 +14,14 @@
 
     Vous trouverez ici la liste de tout les personnes ayant contribués à la création de bouquin:
 
-    <form action="{{ path('personne_addOrUpdate') }}" method="GET">
+
         <table class="table">
             <thead>
                 <th scope="col">Nom</th>
                 <th scope="col">Prenom</th>
-                <th scope="col"><button type="submit" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#idAddUpdateBtn" data-bs-whatever="@mdo" >Ajouter</button></th>
+                <form action="{{ path('personne_add') }}" method="GET">
+                <th scope="col"><button type="submit" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#idAddUpdateBtn" data-bs-whatever="@mdo">Ajouter</button></th>
+                </form>
             </thead>
             <tbody  class="table-group-divider">
                 {% for unePersonne in personnes %}
@@ -31,22 +33,17 @@
                         </td>
                         <td>
 
-                            <button type="submit" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#idAddUpdateBtn" data-bs-whatever="@mdo">Modifier</button>
+                            <form action="{{ path('personne_update',{'Nom':unePersonne.Nom,'Prenom':unePersonne.Prenom}) }}" method="GET">
+                                <button type="submit" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#idAddUpdateBtn" data-bs-whatever="@mdo">Modifier</button>
+                            </form>
                             <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#idSupprimerBtn" data-bs-whatever="@mdo">Supprimer</button>
 
                         </td>
 
                     </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="4" class="text-center">
-                            Pas de Personne pour le moment
-                        </td>
-                    </tr>
                 {% endfor %}
             </tbody>
         </table>
 
-    </form>
 </div>
 {% endblock %}

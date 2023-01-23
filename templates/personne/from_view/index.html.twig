@@ -8,18 +8,23 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-    <form method="post" action="{{ path('personne_index')}}">
+
 
 
         <div class="mb-3">
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                    {% if isEdit %}
+                        <h2>Ajout d'une personne</h2>
+                    {% else %}
+                        <h2>Modification de la personne</h2>
 
-            {{ form_widget(form) }}
-
+                    {% endif %}
+                {{ form_end(form) }}
         </div>
         <div class="mb-3">
 
         </div>
 
-    </form>
+
 
 {% endblock %}

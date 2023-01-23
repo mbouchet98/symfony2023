@@ -4,6 +4,8 @@ namespace App\Entity;
 
 use App\Repository\PersonneRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+
 
 /**
  * @ORM\Entity(repositoryClass=PersonneRepository::class)
@@ -11,6 +13,7 @@ use Doctrine\ORM\Mapping as ORM;
 class Personne
 {
     /**
+     * @var integer
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
@@ -18,24 +21,18 @@ class Personne
     private $id;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $Nom;
 
     /**
+     * @var string
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank
      */
     private $Prenom;
-
-    /**
-     * @param $Nom
-     * @param $Prenom
-     */
-    public function __construct($Nom, $Prenom)
-    {
-        $this->Nom = $Nom;
-        $this->Prenom = $Prenom;
-    }
 
 
     public function getId(): ?int

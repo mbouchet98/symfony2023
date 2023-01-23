@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Controller\Form\FormPersonne;
 use App\Entity\Personne;
 use App\Form\PersonneType;
 use App\Repository\PersonneRepository;
@@ -21,7 +20,6 @@ class PersonneController extends AbstractController
 {
 
     /**
-     *
      * chargement de la page avec la liste de personnes
      */
     public function index(ManagerRegistry $doctrine): Response
@@ -34,22 +32,38 @@ class PersonneController extends AbstractController
 
     public function AddOrUpdate(Request $request): Response
     {
-        $personne = new Personne('test','test');
-        $form = $this->createForm(PersonneType::class, $personne);
+        $em = $this->getDoctrine()->getManager();
+        $personneRepository = $em->getRepository(Personne::class);
 
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            // $form->getData() holds the submitted values
-            // but, the original `$task` variable has also been updated
-            $personne = $form->getData();
+        // Recherche d'une personne existante en utilisant les champs Nom et Prenom
+        $existingPersonne = $personneRepository->findOneBy(['Nom' => $request->get('Nom'), 'Prenom' => $request->get('Prenom')]);
 
-            // ... perform some action, such as saving the task to the database
-
-            return $this->redirectToRoute('personne_index');
+        // Si une personne existante est trouvée, utilisez-la pour créer le formulaire
+       if ($existingPersonne) {
+            $personne = $existingPersonne;
+            $form = $this->createForm(PersonneType::class, $personne, [
+               'action' => $this->generateUrl('personne_update', ['Nom' => $personne->getNom(), 'Prenom' => $personne->getPrenom()]),
+               'method' => 'GET',
+               'existingPersonne' => $existingPersonne,
+           ]);
+        // Sinon une personne n'existante pas, créer un formulaire vide
+        }  else {
+            // Sinon, créez une nouvelle instance de la classe Personne
+            $personne = new Personne();
+            $form = $this->createForm(PersonneType::class, $personne, [
+               'action' => $this->generateUrl('personne_add'),
+               'method' => 'GET',
+               'existingPersonne' => $existingPersonne, ]);
         }
 
-
-        return $this->renderForm('personne/from_view/index.html.twig', ['form'=>$form]);
+       // test des champs valide et non vide
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            // persistance des données
+            $personneRepository->addOrUpdate($personne, true);
+            return $this->redirectToRoute('personne_index');
+        }
+        return $this->renderForm('personne/from_view/index.html.twig', ['form'=>$form,'isEdit' => $existingPersonne === null,]);
     }
 
 

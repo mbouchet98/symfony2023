@@ -5,9 +5,17 @@ personne_index:
   path: /personne
   controller: App\Controller\PersonneController::index
 
-personne_addOrUpdate:
-  path: /personne/form_view
+
+personne_add:
+  path: /personne/form_view/
   controller: App\Controller\PersonneController::AddOrUpdate
+
+personne_update:
+  path: /personne/form_view/{Nom}/{Prenom}
+  controller: App\Controller\PersonneController::AddOrUpdate
+  requirements:
+    nom: \w+
+    prenom: \w+
 
 personne_delete:
   path: /personne
