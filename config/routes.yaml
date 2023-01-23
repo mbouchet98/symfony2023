@@ -18,6 +18,7 @@ personne_update:
     prenom: \w+
 
 personne_delete:
-  path: /personne
-  controller: App\Controller\PersonneController::delete_personne
+  path: /personne/{id}/delete
+  methods: [GET, POST]
+  controller: App\Controller\PersonneController::delete
 

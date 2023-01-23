@@ -5,10 +5,6 @@ namespace App\Repository;
 use App\Entity\Personne;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Console\Output\ConsoleOutput;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * @extends ServiceEntityRepository<Personne>
@@ -29,7 +25,9 @@ class PersonneRepository extends ServiceEntityRepository
     public function addOrUpdate(Personne $entity, bool $flush = false): void
     {
             $this->getEntityManager()->persist($entity);
+        if ($flush) {
             $this->getEntityManager()->flush();
+        }
     }
 
     public function remove(Personne $entity, bool $flush = false): void

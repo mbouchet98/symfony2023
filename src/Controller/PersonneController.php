@@ -4,17 +4,11 @@ namespace App\Controller;
 
 use App\Entity\Personne;
 use App\Form\PersonneType;
-use App\Repository\PersonneRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Form\Extension\Core\Type\FormType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
-use Symfony\Component\Form\Extension\Core\Type\ResetType;
 
 class PersonneController extends AbstractController
 {
@@ -66,5 +60,16 @@ class PersonneController extends AbstractController
         return $this->renderForm('personne/from_view/index.html.twig', ['form'=>$form,'isEdit' => $existingPersonne === null,]);
     }
 
+    public function delete(Request $request,Personne $personne): Response
+    {
 
+        if ($this->isCsrfTokenValid('delete'.$personne->getId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $personneRepository = $entityManager->getRepository(Personne::class);
+            $personneRepository->remove($personne,true);
+            return $this->redirectToRoute('personne_index');
+        }
+
+        return $this->redirectToRoute('personne_index');
+    }
 }

@@ -36,8 +36,10 @@
                             <form action="{{ path('personne_update',{'Nom':unePersonne.Nom,'Prenom':unePersonne.Prenom}) }}" method="GET">
                                 <button type="submit" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#idAddUpdateBtn" data-bs-whatever="@mdo">Modifier</button>
                             </form>
-                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#idSupprimerBtn" data-bs-whatever="@mdo">Supprimer</button>
-
+                            <form action="{{ path('personne_delete', {'id': unePersonne.id}) }}" method="post">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ unePersonne.id) }}">
+                                <button type="submit">Supprimer</button>
+                            </form>
                         </td>
 
                     </tr>
