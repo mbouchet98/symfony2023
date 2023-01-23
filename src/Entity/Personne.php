@@ -34,6 +34,12 @@ class Personne
      */
     private $Prenom;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Categories::class, inversedBy="listePersonnes")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $categorie;
+
 
     public function getId(): ?int
     {
@@ -63,4 +69,17 @@ class Personne
 
         return $this;
     }
+
+    public function getCategorie(): ?Categories
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?Categories $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
+    }
+
 }

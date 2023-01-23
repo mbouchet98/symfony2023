@@ -37,8 +37,8 @@
                                 <button type="submit" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#idAddUpdateBtn" data-bs-whatever="@mdo">Modifier</button>
                             </form>
                             <form action="{{ path('personne_delete', {'id': unePersonne.id}) }}" method="post">
-                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ unePersonne.id) }}">
-                                <button type="submit">Supprimer</button>
+                                <input type="hidden"  name="_token" value="{{ csrf_token('delete' ~ unePersonne.id) }}">
+                                <button type="submit" class="btn btn-outline-danger">Supprimer</button>
                             </form>
                         </td>
 
