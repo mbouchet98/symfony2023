@@ -27,10 +27,14 @@
                     {{ unLivre.resumerLivre }}
                 </td>
                 <td>
-                    {{ unLivre.edition.nomEdition }}
+                    {% for edition in unLivre.edition %}
+                        {{ edition.nomEdition }}
+                    {% endfor %}
                 </td>
                 <td>
-
+                    {% for personne in unLivre.personnes %}
+                        {{ personne.Nom }} {{ personne.Prenom }}
+                    {% endfor %}
                 </td>
                 <td>
 

@@ -34,9 +34,15 @@ class Livre
      */
     private $resumerLivre;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Personne::class, inversedBy="livres")
+     */
+    private $personnes;
+
     public function __construct()
     {
         $this->edition = new ArrayCollection();
+        $this->personnes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -88,6 +94,30 @@ class Livre
     public function setResumerLivre(string $resumerLivre): self
     {
         $this->resumerLivre = $resumerLivre;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Personne>
+     */
+    public function getPersonnes(): Collection
+    {
+        return $this->personnes;
+    }
+
+    public function addPersonne(Personne $personne): self
+    {
+        if (!$this->personnes->contains($personne)) {
+            $this->personnes[] = $personne;
+        }
+
+        return $this;
+    }
+
+    public function removePersonne(Personne $personne): self
+    {
+        $this->personnes->removeElement($personne);
 
         return $this;
     }

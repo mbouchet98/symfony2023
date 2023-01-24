@@ -31,7 +31,7 @@ livre_add:
   controller: App\Controller\LivreController::AddOrUpdate
 
 livre_update:
-  path: /livre/form_view/{Nom}/{Prenom}
+  path: /livre/form_view/{nomLivre}/{resumerLivre}
   controller: App\Controller\LivreController::AddOrUpdate
   requirements:
     nom: \w+

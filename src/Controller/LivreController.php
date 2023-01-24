@@ -55,7 +55,7 @@ class LivreController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             // persistance des données
-            $existingLivre->addOrUpdate($livre, true);
+            $livreRepository->addOrUpdate($livre, true);
             return $this->redirectToRoute('livre_index');
         }
         return $this->renderForm('livre/from_view/index.html.twig', ['form'=>$form,'isEdit' => $existingLivre === null]);

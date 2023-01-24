@@ -21,7 +21,7 @@ class LivreRepository extends ServiceEntityRepository
         parent::__construct($registry, Livre::class);
     }
 
-    public function add(Livre $entity, bool $flush = false): void
+    public function addOrUpdate(Livre $entity, bool $flush = false): void
     {
         $this->getEntityManager()->persist($entity);
 
