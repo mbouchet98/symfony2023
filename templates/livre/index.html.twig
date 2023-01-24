@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello LivreController!{% endblock %}
+
+{% block body %}
+
+<div class="example-wrapper">
+    <h1>Listes de livres !</h1>
+
+    Vous trouverez ici la liste de tout les livres :
+    <table class="table">
+        <thead>
+            <th scope="col">Titre du livre</th>
+            <th scope="col">Résumer</th>
+            <th scope="col">édition</th>
+            <th scope="col">Auteur</th>
+            <form action="{{ path('livre_add') }}" method="GET">
+                <th scope="col"><button type="submit" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#idAddUpdateBtn" data-bs-whatever="@mdo">Ajouter</button></th>
+            </form>
+        </thead>
+        <tbody  class="table-group-divider">
+        {% for unLivre in livres %}
+            <tr>
+                <td> {{ unLivre.nomLivre }} </td>
+
+                <td>
+                    {{ unLivre.resumerLivre }}
+                </td>
+                <td>
+                    {{ unLivre.edition.nomEdition }}
+                </td>
+                <td>
+
+                </td>
+                <td>
+
+                    <form action="{{ path('livre_update',{'nomLivre':unLivre.nomLivre,'resumerLivre':unLivre.resumerLivre}) }}" method="GET">
+                        <button type="submit" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#idAddUpdateBtn" data-bs-whatever="@mdo">Modifier</button>
+                    </form>
+                    <form action="{{ path('livre_delete', {'id': unLivre.id}) }}" method="post">
+                        <input type="hidden"  name="_token" value="{{ csrf_token('delete' ~ unLivre.id) }}">
+                        <button type="submit" class="btn btn-outline-danger">Supprimer</button>
+                    </form>
+                </td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
