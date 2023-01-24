@@ -19,6 +19,7 @@
             <thead>
                 <th scope="col">Nom</th>
                 <th scope="col">Prenom</th>
+                <th scope="col">Catégories</th>
                 <form action="{{ path('personne_add') }}" method="GET">
                 <th scope="col"><button type="submit" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#idAddUpdateBtn" data-bs-whatever="@mdo">Ajouter</button></th>
                 </form>
@@ -30,6 +31,9 @@
 
                         <td>
                             {{ unePersonne.Prenom }}
+                        </td>
+                        <td>
+                            {{ unePersonne.categorie.nomCategorie }}
                         </td>
                         <td>
 

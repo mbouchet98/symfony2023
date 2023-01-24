@@ -2,8 +2,11 @@
 
 namespace App\Form;
 
+use App\Entity\Categories;
 use App\Entity\Personne;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,6 +24,7 @@ class PersonneType extends AbstractType
     {
         $nom = $options['existingPersonne'] ? $options['existingPersonne']->getNom() : null;
         $pernom = $options['existingPersonne'] ? $options['existingPersonne']->getPrenom() : null;
+
         $builder
             ->add('Nom', TextType::class, [
                 'label' => 'Nom personne',
@@ -32,6 +36,10 @@ class PersonneType extends AbstractType
                 'required' => true,
                 'data' => $pernom,
             ])
+            ->add('categorie', EntityType::class, [
+                'class' => Categories::class,
+                'choice_label' => 'nomCategorie',
+            ])
             ->add('Enregistrer', SubmitType::class)
             ->getForm();
     }
@@ -40,6 +48,7 @@ class PersonneType extends AbstractType
     {
         $resolver->setDefaults([
             'existingPersonne' => Personne::class,
+
         ]);
     }
 }

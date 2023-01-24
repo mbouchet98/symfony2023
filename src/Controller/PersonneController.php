@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Categories;
 use App\Entity\Personne;
 use App\Form\PersonneType;
 use Doctrine\Persistence\ManagerRegistry;
@@ -39,6 +40,7 @@ class PersonneController extends AbstractController
                'action' => $this->generateUrl('personne_update', ['Nom' => $personne->getNom(), 'Prenom' => $personne->getPrenom()]),
                'method' => 'GET',
                'existingPersonne' => $existingPersonne,
+
            ]);
         // Sinon une personne n'existante pas, créer un formulaire vide
         }  else {
@@ -47,17 +49,20 @@ class PersonneController extends AbstractController
             $form = $this->createForm(PersonneType::class, $personne, [
                'action' => $this->generateUrl('personne_add'),
                'method' => 'GET',
-               'existingPersonne' => $existingPersonne, ]);
+               'existingPersonne' => $existingPersonne,
+
+                ]);
         }
 
        // test des champs valide et non vide
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+
             // persistance des données
             $personneRepository->addOrUpdate($personne, true);
             return $this->redirectToRoute('personne_index');
         }
-        return $this->renderForm('personne/from_view/index.html.twig', ['form'=>$form,'isEdit' => $existingPersonne === null,]);
+        return $this->renderForm('personne/from_view/index.html.twig', ['form'=>$form,'isEdit' => $existingPersonne === null]);
     }
 
     public function delete(Request $request,Personne $personne): Response
