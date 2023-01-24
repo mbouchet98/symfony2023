@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello FromViewController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+
+
+
+        <div class="mb-3">
+                {{ form_start(form, {'attr': {'novalidate': 'novalidate'}}) }}
+                    {% if isEdit %}
+                        <h2>Ajout un livre</h2>
+                    {% else %}
+                        <h2>Modifier un livre</h2>
+                    {% endif %}
+                {{ form_end(form) }}
+        </div>
+        <div class="mb-3">
+
+        </div>
+
+
+
+{% endblock %}

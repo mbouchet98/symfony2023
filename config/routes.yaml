@@ -5,7 +5,6 @@ personne_index:
   path: /personne
   controller: App\Controller\PersonneController::index
 
-
 personne_add:
   path: /personne/form_view/
   controller: App\Controller\PersonneController::AddOrUpdate
@@ -22,3 +21,23 @@ personne_delete:
   methods: [GET, POST]
   controller: App\Controller\PersonneController::delete
 
+livre_index:
+  path: /livre
+  controller: App\Controller\LivreController::index
+
+
+livre_add:
+  path: /livre/form_view/
+  controller: App\Controller\LivreController::AddOrUpdate
+
+livre_update:
+  path: /livre/form_view/{Nom}/{Prenom}
+  controller: App\Controller\LivreController::AddOrUpdate
+  requirements:
+    nom: \w+
+    prenom: \w+
+
+livre_delete:
+  path: /livre/{id}/delete
+  methods: [GET, POST]
+  controller: App\Controller\LivreController::delete
