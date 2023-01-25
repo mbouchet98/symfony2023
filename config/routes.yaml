@@ -41,3 +41,8 @@ livre_delete:
   path: /livre/{id}/delete
   methods: [GET, POST]
   controller: App\Controller\LivreController::delete
+
+inscription:
+  path: /user
+  controller: App\Controller\UserController::inscription
+
