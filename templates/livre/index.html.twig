@@ -14,9 +14,11 @@
             <th scope="col">Résumer</th>
             <th scope="col">édition</th>
             <th scope="col">Auteur</th>
+            {% if is_granted('ROLE_ADMIN') %}
             <form action="{{ path('livre_add') }}" method="GET">
                 <th scope="col"><button type="submit" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#idAddUpdateBtn" data-bs-whatever="@mdo">Ajouter</button></th>
             </form>
+            {% endif %}
         </thead>
         <tbody  class="table-group-divider">
         {% for unLivre in livres %}
@@ -36,8 +38,8 @@
                         {{ personne.Nom }} {{ personne.Prenom }}
                     {% endfor %}
                 </td>
+                {% if is_granted('ROLE_ADMIN') %}
                 <td>
-
                     <form action="{{ path('livre_update',{'nomLivre':unLivre.nomLivre,'resumerLivre':unLivre.resumerLivre}) }}" method="GET">
                         <button type="submit" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#idAddUpdateBtn" data-bs-whatever="@mdo">Modifier</button>
                     </form>
@@ -46,7 +48,7 @@
                         <button type="submit" class="btn btn-outline-danger">Supprimer</button>
                     </form>
                 </td>
-
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>
